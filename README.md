@@ -9,6 +9,8 @@
 * [Golang](https://github.com/lawporter/go-project-spec)
 * More...
 
+本文所用到的关键词（ MUST（NOT）、SHOULD（NOT）和 MAY）依照 [RFC 2119](https://datatracker.ietf.org/doc/html/rfc2119) 的叙述解读。
+
 ## 文档规范
 
 ### README 规范
