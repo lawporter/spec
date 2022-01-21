@@ -86,7 +86,7 @@ How to start your project
 
 ### PR 提交与审查规范
 
-1. 开发人员提交 PR 时不能（**MUST NOT**）取一些毫无意义的 PR 标题，比如 `my cool pull request`，应该（**SHOULD**）和该 PR 所要做的事情一致，PR 标题必须（**MUST**）和 Commit Message Header （见 [Git Commit 规范](git-commit-规范)）保持一致，如 `fix(scheduler): avoid process starvation problem`；
+1. 开发人员提交 PR 时不能（**MUST NOT**）取一些毫无意义的 PR 标题，比如 `my cool pull request`，应该（**SHOULD**）和该 PR 所要做的事情一致，PR 标题必须（**MUST**）和 Commit Message Header （见 [Git Commit 规范](#git-commit-规范)）保持一致，如 `fix(scheduler): avoid process starvation problem`；
 2. 一个 PR 只做（**MUST**）一件事情（比如一个优化，一个功能），如果一个 PR 同时包含几件事情请关闭它必将它拆分成几个 PR 重新提交；
 3. 每个 PR 必须（**MUST**）添加一段说明性文字对 PR 内容作介绍。比如为什么有这个 PR、这个 PR 做了什么事情，这个 PR 修复了什么 Bug 等，说明文字的主要目的是帮助参与 review 的开发人员更好的对代码内容进行审查，提高审查效率。对于 fix 类型的 PR，应当（**SHOULD**） 解释造成问题的原因以及解决的办法，对于 feat 的 PR，应当（**SHOULD**）附加设计文档。这里给个示例：
 
