@@ -152,8 +152,10 @@ subject 是 commit 内容的简短描述，必须（**MUST**）使用现在时�
 2. 应该（**SHOULD**）使用一个表示分支影响范围的单词或用 `-` 连接的短语 **scope**  作为分支名的第二个单词，类似 Git Commit Message Header scope，scope 用来描述功能或者模块；
 3. 必须（**MUST**）使用 `/` 区分不同的单词，比如 `feat/homepage`；
 4. 可以（**MAY**）添加更多的单词或用 `-` 连接的短语对分支进行进一步描述，比如 `feat/homepage/project-intro`，但分支名包含的 `/` 不应该（**SHOULD NOT**）超过 2 个 ；
-5. 不能（**MUST NOT**）使用无意义的纯数字作为分支名的一部分，比如 `fix/128`。
+5. 不能（**MUST NOT**）使用无意义的纯数字作为分支名的一部分，比如 `fix/128`；
+6. 对于一个可能被多个开发人员协作的工作分支（非 `main` 分支），创建者应该（**SHOULD**）首先创建一个该功能的公共分支，比如 `feat/homepage/main`，表示 `feat/homepage` 目录下的公共分支 `main`，然后开发人员再在此基础上创建自己的分支名，比如 `feat/homepage/banner`。
 
 > 需要注意的是，使用这种方式会限制一些分支名的创建。比如说开发人员 A 创建了分支 `feat/homepage/intro`，则其他开发人员无法创建诸如  `feat/homepage` 这样的分支名，因为 git 会视 `feat` 和 `homepage` 部分为目录名，`intro` 为分支路径名；同理 `feat/homepage/intro/blabla` 也是不被允许的。读者可以查看项目下的 `.git/refs/heads/*` 目录结构有一个更清晰的了解。
 
 使用该分支命名规则兼具简明性与可读性。另一种常被开发人员采用的分支命名规约是使用 `master`、`develop`、 `release-*` 或 `hotfix-*` 中的一个。这种命名方式来源于 [Git Flow](https://nvie.com/posts/a-successful-git-branching-model/) 工作流程中的一环，然而，本文认为这种命名不足以表达全部的语义。
+
