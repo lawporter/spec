@@ -1,6 +1,4 @@
-# Development Spec
-
-> WIP
+# 开发规约 0.1.0
 
 开发规约往往极具组织特色与一些团队偏好，不同组织、不同项目的开发规约不尽相同。尽管如此，不同规约的本质都是一致的，所追寻的软件工程的“道”都相同，不同规约文档主要差异也只是体现在“术”上的选择上。本文作为 lawporter organization 下的规约文档，是基于组织成员过去的开发经历归纳总结而成，可供新的开源项目、新的组织或是还未形成成熟规范的团队参考，也欢迎大家对此文档上的内容进行讨论，进一步优化本文的一些实践内容。
 
@@ -56,11 +54,11 @@ How to start your project
 
 如何管理一个组织下的文档是一个政治问题，通常来说处理方式主要有三种——分布式、集中式和混合式。
 
-* 分布式：即各个 repo 下各自维护各自的文档。这样的好处是很多东西都可以就地查找，不需要去另外一个 repo 寻找；坏处是一个 repo 下的文档不可避免的有许多重复的东西。通常来说，一个以项目为单位进行主要维护的组织会将 repo 和相关文档放置在一起，比如说 [kubebuilder](https://github.com/kubernetes-sigs/kubebuilder)；
-* 集中式：集中式是将所有文档放在一个统一的地方进行管理。这样的好处是方便组织管理，并且文档的结构可以更加清晰，项目间的查询也更加方便，方便迁移；坏处是开发者不得不同时维护多个 repo，文档与 repo 之间的对齐需要另外约定。一个需要负责多个 repo 且需要协调多个 repo 的组织通常会使用集中式的文档管理，比如说 [fission](https://github.com/fission)；
+* 分布式：即各个项目下各自维护各自的文档。这样的好处是很多东西都可以就地查找，不需要去另外一个项目寻找；坏处是一个项目下的文档不可避免的有许多重复的东西。通常来说，项目与项目之间关系联系较低的情况下，组织都会采用分布式文档，比如说 [kubebuilder](https://github.com/kubernetes-sigs/kubebuilder)；
+* 集中式：集中式是将所有文档集中进行管理。这样的好处是方便组织管理，并且文档的结构可以更加清晰，项目间的查询也更加方便，方便迁移；坏处是开发者文档与项目之间的对齐需要另外约定。一个需要负责多个项目 且需要协调多个项目的组织通常会使用集中式的文档管理，比如说 [fission](https://github.com/fission)；
 * 混合式：分布式加集中式的文档管理。
 
-考虑到目前我们组织的架构性问题与项目的特点，组织下涉及多个 repo 及其相互之间的合作，因此使用一个**规范目录结构的集中性文档管理**是一个比较好的方案。
+考虑到目前我们组织的架构性问题与项目的特点，组织下涉及多个项目及其相互之间的合作，因此使用一个**规范目录结构的集中性文档管理**是一个比较好的方案。
 
 ## 开发规范
 
@@ -68,7 +66,7 @@ How to start your project
 
 ### Git Workflow 规范
 
-一个运作良好的开发团队会按照一定的规范流程进行项目的开发，这类流程规范称为 Git Workflow，常见的 4 种工作流模型有 Git Flow、Github Flow、GitLab Flow 和 One Flow，*[4 branching workflows for Git](https://medium.com/@patrickporto/4-branching-workflows-for-git-30d0aaee7bf)* 这篇文章已将它们之间各自的优缺点阐述的非常清晰了。由于团队成员的日常开发活动均在 GitHub 平台上，并对其工作流程有一定的经验，因此本文的工作流规范基于 [Github Flow](https://docs.github.com/en/get-started/quickstart/github-flow) 并在此基础之上做了些许调整。
+一个运作良好的开发团队会按照一定的带有自动化流程的开发规范进行项目的开发，这类流程规范称为 Git Workflow，常见的 4 种工作流模型有 Git Flow、Github Flow、GitLab Flow 和 One Flow，*[4 branching workflows for Git](https://medium.com/@patrickporto/4-branching-workflows-for-git-30d0aaee7bf)* 这篇文章已将它们之间各自的优缺点阐述的非常清晰了。由于团队成员的日常开发活动均在 GitHub 平台上，并对其工作流程有一定的经验，因此本文的工作流规范基于 [Github Flow](https://docs.github.com/en/get-started/quickstart/github-flow) 并在此基础之上做了些许调整。
 
 **创建一个 Git 分支**：任何涉及项目代码变更的地方都必须（**MUST**）创建一个新的 Git 分支，GIthub Flow 并没有对分支名作出规约，然而本文定义了分支语义化规范，见 [Git 分支命名规范](#git-分支命名规范)。通过创建一个新分支，开发人员可以在不影响其他分支的前提下进行工作，并让其他成员 review 相关工作。
 
@@ -92,7 +90,7 @@ How to start your project
 
 ### PR 提交与审查规范
 
-1. 开发人员提交 PR 时不能（**MUST NOT**）取一些毫无意义的 PR 标题，比如 `my cool pull request`，应该（**SHOULD**）和该 PR 所要做的事情一致，PR 标题必须（**MUST**）和 Commit Message Header （见 [Git Commit 规范](#git-commit-规范)）保持一致，如 `fix(scheduler): avoid process starvation problem`；
+1. 开发人员提交 PR 时不能（**MUST NOT**）取一些毫无意义的 PR 标题，比如 `my cool pull request`，应该（**SHOULD**）和该 PR 所要做的事情保持一致。所有 PR 的分支都会被 squash，因此一个 PR 在主分支上被 squash 成了一个单词的 commit，因此PR 标题必须（**MUST**）和 Commit Message Header （见 [Git Commit 规范](#git-commit-规范)）保持一致，如 `fix(scheduler): avoid process starvation problem`；
 2. 一个 PR 只做（**MUST**）一件事情（比如一个优化，一个功能），如果一个 PR 同时包含几件事情请关闭它必将它拆分成几个 PR 重新提交；
 3. 每个 PR 必须（**MUST**）添加一段说明性文字对 PR 内容作介绍。比如为什么有这个 PR、这个 PR 做了什么事情，这个 PR 修复了什么 Bug 等，说明文字的主要目的是帮助参与 review 的开发人员更好的对代码内容进行审查，提高审查效率。对于 fix 类型的 PR，应当（**SHOULD**） 解释造成问题的原因以及解决的办法，对于 feat 的 PR，应当（**SHOULD**）附加设计文档。这里给个示例：
 
@@ -100,8 +98,8 @@ How to start your project
 
 4. 在提交 PR 之前，开发人员必须（**MUST**）先完成方案审查与代码自测；
 5. 单次 PR 的代码修改量应该（**SHOULD**）控制在 300 行左右（不同组织自行约定），测试代码或一些整体性代码变更不算在內；当 PR 代码修改量超过 500 行（不同组织自行约定），审查人员应当（**SHOULD**）拒绝此次 review；
-6. 每次 PR 应（**SHOULD**）保证项目团队成员超过半数的人员审查过代码内容后才能合并 PR，每个 PR 应当（**SHOULD**）在发起后的 24 小时内完成 review；
-7. 当单次 PR 的代码修改量超过 300 行时（组织自行约定）或该 PR 涉及修改的内容众多时，除了审查人员审查代码外，开发人员还应（**SHOULD**）发起一次会议评审，将代码核心内容做一次系统性介绍帮助他人审查；
+6. 每次 PR 应（**SHOULD**）保证项目团队开发成员超过半数的人员审查过代码内容后才能合并 PR，每个 PR 应当（**SHOULD**）在发起后的一个工作日内完成 review；
+7. 当单次 PR 的代码修改量超过 300 行时（组织自行约定）或该 PR 涉及修改的内容较多时，除了审查人员审查代码外，开发人员还应（**SHOULD**）发起一次会议评审，将代码核心内容做一次系统性介绍帮助他人审查；
 8. 审查人员应该（**SHOULD**）理解被审查代码的设计思路以及全部代码含义，若审查人员 review 对代码内容有问题需要沟通时，除了使用基本的 PR Comment 机制，还可以（**MAY**）约定开发人员一起结对过一遍代码审查流程;
 9. 开发人员应该（**SHOULD**）回复审查人员的所有 Comments，并在完成 Comments （比如代码已完成修改、经过讨论后觉得此处不需要修正）后点击 **Resolve Conversation** 标记该对话已完成。
 
@@ -146,7 +144,7 @@ subject 是 commit 内容的简短描述，必须（**MUST**）使用现在时�
 
 分支命名规范是一个容易被团队忽略的问题，这主要是由于开发者在大多数情况下都是在一个个人的分支上开发然后合并到一个主分支或者功能分支上，不太会被多人同时使用。然而考虑到分支本身的语义性以及一些被随意命名的分支可能在代码仓库中会持续较长的一段时间，本规约仍将分支命名作为一个团队成员需要遵守的规范。
 
-开发者创建一个新的分支时，是为了开发一个功能、修复一些 Bug 或者其他事，这些分支最后会被合并到主分支上。一个分支上要做的事情在创建时已经是明确的，一个分支上做的所有事情在合并到主分支上时也会最终被合并为一次 commit（见[开发工作流规范](#开发工作流规范)），基于此，本文参考了其他开发者对分支命名的[思考](https://stackoverflow.com/questions/273695/what-are-some-examples-of-commonly-used-practices-for-naming-git-branches)并根据本文对 [Git Commit 规范](#git-commit-规范)约定了**分支语义化规范**：
+开发者创建一个新的分支时，是为了开发一个功能、修复一些 Bug 或者其他事，这些分支最后会被合并到主分支上。一个分支上要做的事情在创建时已经是明确的，一个分支上做的所有事情在合并到主分支上时也会最终被合并为一次 commit（见[开发工作流规范](#开发工作流规范)），基于此，本文参考了其他开发者对分支命名的[思考](https://stackoverflow.com/questions/273695/what-are-some-examples-of-commonly-used-practices-for-naming-git-branches)并根据本文对 [Git Commit 规范](#git-commit-规范)的约定，提出**分支语义化规范**：
 
 1. 必须（**MUST**）使用一个描述分支类型的单词 **type** 作为分支名的开头，type 必须（**MUST**）是 Git Commit Message Header type 中的一个（即 **feat、fix、perf、refactor、docs、style、test、chore**）且语义一致；
 2. 应该（**SHOULD**）使用一个表示分支影响范围的单词或用 `-` 连接的短语 **scope**  作为分支名的第二个单词，类似 Git Commit Message Header scope，scope 用来描述功能或者模块；
@@ -157,5 +155,4 @@ subject 是 commit 内容的简短描述，必须（**MUST**）使用现在时�
 
 > 需要注意的是，使用这种方式会限制一些分支名的创建。比如说开发人员 A 创建了分支 `feat/homepage/intro`，则其他开发人员无法创建诸如  `feat/homepage` 这样的分支名，因为 git 会视 `feat` 和 `homepage` 部分为目录名，`intro` 为分支路径名；同理 `feat/homepage/intro/blabla` 也是不被允许的。读者可以查看项目下的 `.git/refs/heads/*` 目录结构有一个更清晰的了解。
 
-使用该分支命名规则兼具简明性与可读性。另一种常被开发人员采用的分支命名规约是使用 `master`、`develop`、 `release-*` 或 `hotfix-*` 中的一个。这种命名方式来源于 [Git Flow](https://nvie.com/posts/a-successful-git-branching-model/) 工作流程中的一环，然而，本文认为这种命名不足以表达全部的语义。
-
+使用该分支命名规则兼具简明性与可读性。另一种常被开发人员采用的分支命名规约是使用 `master`、`develop`、 `release-*` 或 `hotfix-*` 中的一个。这种命名方式来源于 [Git Flow](https://nvie.com/posts/a-successful-git-branching-model/) 工作流程中的一环，大多数开源项目经常这样进行分支命名，比如说 [Dapr](https://github.com/dapr/dapr)、[Kubernetes](https://github.com/kubernetes/kubernetes) 等。然而，当组织内部面临的多变的业务要求时，团队往往无法对下一个版本与功能进行准确规划，这使得带有充足信息量的分支名会更适合应对敏捷开发过程。
