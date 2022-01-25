@@ -148,11 +148,10 @@ subject 是 commit 内容的简短描述，必须（**MUST**）使用现在时�
 
 1. 必须（**MUST**）使用一个描述分支类型的单词 **type** 作为分支名的开头，type 必须（**MUST**）是 Git Commit Message Header type 中的一个（即 **feat、fix、perf、refactor、docs、style、test、chore**）且语义一致；
 2. 应该（**SHOULD**）使用一个表示分支影响范围的单词或用 `-` 连接的短语 **scope**  作为分支名的第二个单词，类似 Git Commit Message Header scope，scope 用来描述功能或者模块；
-3. 必须（**MUST**）使用 `/` 区分不同的单词，比如 `feat/homepage`；
-4. 可以（**MAY**）添加更多的单词或用 `-` 连接的短语对分支进行进一步描述，比如 `feat/homepage/project-intro`，但分支名包含的 `/` 不应该（**SHOULD NOT**）超过 2 个 ；
-5. 不能（**MUST NOT**）使用无意义的纯数字作为分支名的一部分，比如 `fix/128`；
-6. 对于一个可能被多个开发人员协作的工作分支（非 `main` 分支），创建者应该（**SHOULD**）首先创建一个该功能的公共分支，比如 `feat/homepage/main`，表示 `feat/homepage` 目录下的公共分支 `main`，然后开发人员再在此基础上创建自己的分支名，比如 `feat/homepage/banner`。
+3. 必须（**MUST**）使用 `/` 区分 **type** 与 **scope**，比如 `feat/homepage-intro`；
+4. 不能（**MUST NOT**）使用无意义的纯数字作为分支名的一部分，比如 `fix/128`；
+5. 对于一个可能被多个开发人员协作的工作分支（非 `main` 分支），创建者应该（**SHOULD**）首先创建一个该功能的公共分支，比如 `feat/homepage-main`，然后开发人员再在此基础上创建自己的分支名，比如 `feat/homepage-banner`。
 
-> 需要注意的是，使用这种方式会限制一些分支名的创建。比如说开发人员 A 创建了分支 `feat/homepage/intro`，则其他开发人员无法创建诸如  `feat/homepage` 这样的分支名，因为 git 会视 `feat` 和 `homepage` 部分为目录名，`intro` 为分支路径名；同理 `feat/homepage/intro/blabla` 也是不被允许的。读者可以查看项目下的 `.git/refs/heads/*` 目录结构有一个更清晰的了解。
+需要注意的是，使用这种方式会限制一些分支名的创建。比如说开发人员 A 创建了分支 `feat/homepage`，则其他开发人员无法创建诸如  `feat` 这样的分支名，因为 git 会视 `feat`  部分为目录名，`homepage` 为分支路径名；同理 `feat/homepage/intro` 也是不被允许的。读者可以查看项目下的 `.git/refs/heads/*` 目录结构有一个更清晰的了解。本文使用 `/` 明确约束开发者不创建 `feat`、`fix` 这样的分支名。
 
 使用该分支命名规则兼具简明性与可读性。另一种常被开发人员采用的分支命名规约是使用 `master`、`develop`、 `release-*` 或 `hotfix-*` 中的一个。这种命名方式来源于 [Git Flow](https://nvie.com/posts/a-successful-git-branching-model/) 工作流程中的一环，大多数开源项目经常这样进行分支命名，比如说 [Dapr](https://github.com/dapr/dapr)、[Kubernetes](https://github.com/kubernetes/kubernetes) 等。然而，当组织内部面临的多变的业务要求时，团队往往无法对下一个版本与功能进行准确规划，这使得带有充足信息量的分支名会更适合应对敏捷开发过程。
